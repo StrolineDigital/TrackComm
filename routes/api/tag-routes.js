@@ -7,7 +7,12 @@ router.get('/', (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   Tag.findAll({
-    include: [Product]
+    include: [
+      {
+        model:Product,
+        attributes: ['product_name']
+      },
+    ],
   })
     .then((tags) => res.json(tags))
     .catch((err) => res.status(500).json(err));
@@ -20,7 +25,12 @@ router.get('/:id', (req, res) => {
     where: {
       id: req.params.id
     },
-    include: [Product]
+    include: [
+      {
+        model:Product,
+        attributes: ['product_name']
+      },
+    ],
   })
     .then((tag) => {
       if (!tag) {
@@ -44,14 +54,14 @@ router.put('/:id', (req, res) => {
   Tag.update(req.body, {
     where: {
       id: req.params.id
-    }
+    },
   })
-    .then((tag) => {
-      if (!tag) {
+    .then((result) => {
+      if (result[0] === 0) {
         res.status(404).json({ message: 'No tag found with this id' });
         return;
       }
-      res.json(tag);
+      res.json({ message: 'Tag updated successfully'});
     })
     .catch((err) => res.status(500).json(err));
 });
@@ -63,12 +73,12 @@ router.delete('/:id', (req, res) => {
       id: req.params.id
     }
   })
-    .then((tag) => {
-      if (!tag) {
+    .then((result) => {
+      if (result === 0) {
         res.status(404).json({ message: 'No tag found with this id' });
         return;
       }
-      res.json(tag);
+      res.json({message: 'Tag deleted successfully'});
     })
     .catch((err) => res.status(500).json(err));
 });

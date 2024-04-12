@@ -150,7 +150,7 @@ router.delete('/:id', (req, res) => {
       res.json({ message: 'Product deleted'});
     })
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
       res.status(500).json(err);
     });
 });
