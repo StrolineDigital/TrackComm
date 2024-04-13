@@ -1,12 +1,11 @@
 const router = require('express').Router();
+// This imports the Tag, Product, and ProductTag models to use its database functions.
 const { Tag, Product,ProductTag} = require('../../models');
 
-// The `/api/tags` endpoint
 
+// This route is used to find all tags and include its associated Product data
 router.get('/', (req, res) => {
-  // find all tags
-  // be sure to include its associated Product data
-  Tag.findAll({
+    Tag.findAll({
     include: [
       {
         model:Product,
@@ -18,10 +17,9 @@ router.get('/', (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
+// This route is used to find one tag by its `id` value and include its associated Product data
 router.get('/:id', (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
-  Tag.findOne({
+    Tag.findOne({
     where: {
       id: req.params.id
     },
@@ -42,16 +40,16 @@ router.get('/:id', (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
+// This route is used to create a new tag
 router.post('/', (req, res) => {
-  // create a new tag
-  Tag.create(req.body)
+   Tag.create(req.body)
     .then((tag) => res.json(tag))
     .catch((err) => res.status(500).json(err));
 });
 
+// This route is used to update a tag's name by its `id` value
 router.put('/:id', (req, res) => {
-  // update a tag's name by its `id` value
-  Tag.update(req.body, {
+    Tag.update(req.body, {
     where: {
       id: req.params.id
     },
@@ -66,9 +64,9 @@ router.put('/:id', (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
+// This route is used to delete a tag by its `id` value
 router.delete('/:id', (req, res) => {
-  // delete on tag by its `id` value
-  Tag.destroy({
+    Tag.destroy({
     where: {
       id: req.params.id
     }
@@ -83,4 +81,5 @@ router.delete('/:id', (req, res) => {
     .catch((err) => res.status(500).json(err));
 });
 
+// This exports the router
 module.exports = router;

@@ -1,13 +1,12 @@
 const router = require('express').Router();
+// This imports the Product, Category, Tag, and ProductTag models to use its database functions.
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
-// The `/api/products` endpoint
 
-// get all products
+
+//This route is used to find all products and include its associated Category and Tag data
 router.get('/', (req, res) => {
-  // find all products
-  // be sure to include its associated Category and Tag data
-  Product.findAll({
+    Product.findAll({
       include: [
       {
         model: Category,
@@ -28,10 +27,9 @@ router.get('/', (req, res) => {
     });
 });
 
-// get one product
+//This route is used to find one product by its `id` value and include its associated Category and Tag data
 router.get('/:id', (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+  
   Product.findOne({
     where: {
       id: req.params.id
@@ -60,7 +58,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-// create new product
+//This route is used to create a new product
 router.post('/', (req, res) => {
   /* req.body should look like this...
     {
@@ -70,9 +68,10 @@ router.post('/', (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
+ 
  Product.create(req.body)
     .then((product) => {
-      // if there's product tags, we need to create pairings to bulk create in the ProductTag model
+      // if there are product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds && req.body.tagIds.length) {
         const productTagIdArr = req.body.tagIds.map((tag_id) => {
           return {
@@ -99,7 +98,7 @@ router.post('/', (req, res) => {
   });
   
 
-// update product
+// This route is used to update a product by its `id` value
 router.put('/:id', (req, res) => {
   // update product data
   Product.update(req.body, {
@@ -134,9 +133,9 @@ router.put('/:id', (req, res) => {
     });
   });
     
-
+//This route is used to delete a product by its `id` value
 router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+  
   Product.destroy({
     where: {
       id: req.params.id
@@ -155,4 +154,5 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+//This exports the router
 module.exports = router;

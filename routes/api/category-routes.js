@@ -1,12 +1,11 @@
 const router = require('express').Router();
+// This imports the Category and Product models to use its database functions.
 const { Category, Product } = require('../../models');
 
-// The `/api/categories` endpoint
 
+//This route is used to find all categories and include its associated Products
 router.get('/', (res) => {
-  // find all categories
-  // be sure to include its associated Products
-  Category.findAll({
+   Category.findAll({
     include: [Product]
   })
     .then((categories) => {
@@ -17,10 +16,9 @@ router.get('/', (res) => {
     });
     });
 
+    //This route is used to find one category by its `id` value and include its associated Products
 router.get('/:id', (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
-  Category.findOne({
+    Category.findOne({
     where: {
       id: req.params.id
     },
@@ -34,9 +32,9 @@ router.get('/:id', (req, res) => {
     });
     });
 
+    //This route is used to create a new category
 router.post('/', (req, res) => {
-  // create a new category
-  Category.create(req.body)
+    Category.create(req.body)
     .then((categories) => {
       res.json(categories);
     })
@@ -45,9 +43,9 @@ router.post('/', (req, res) => {
     });
 });
 
+//This route is used to update a category by its `id` value
 router.put('/:id', (req, res) => {
-  // update a category by its `id` value
-  Category.update(req.body, {
+    Category.update(req.body, {
     where: {
       id: req.params.id
     }
@@ -60,9 +58,9 @@ router.put('/:id', (req, res) => {
     });
 });
 
+//This route is used to delete a category by its `id` value
 router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
-  Category.destroy({
+    Category.destroy({
     where: {
       id: req.params.id
     }
@@ -74,5 +72,7 @@ router.delete('/:id', (req, res) => {
       res.status(500).json(err);
     });
 });
+
+//This exports the router
 
 module.exports = router;
