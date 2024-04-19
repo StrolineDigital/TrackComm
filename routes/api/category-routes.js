@@ -4,15 +4,14 @@ const { Category, Product } = require('../../models');
 
 
 //This route is used to find all categories and include its associated Products
-router.get('/', (res) => {
+router.get('/', (req,res) => {
    Category.findAll({
     include: [Product]
-  })
-    .then((categories) => {
+  }).then((categories) => {
       res.json(categories);
     })
-    .catch((err) => {
-      res.status(500).json(err);
+   .catch((err) => {
+     res.status(500).json(err);
     });
     });
 
@@ -43,20 +42,20 @@ router.post('/', (req, res) => {
     });
 });
 
-//This route is used to update a category by its `id` value
 router.put('/:id', (req, res) => {
-    Category.update(req.body, {
+  Category.update(req.body, {
     where: {
       id: req.params.id
     }
   })
-    .then((categories) => {
-      res.json(categories);
-    })
-    .catch((err) => {
-      res.status(500).json(err);
-    });
+  .then((categories) => {
+    res.status(200).json({ message: 'category updated'});
+  })
+  .catch((err) => {
+    res.status(500).json(err);
+  });
 });
+
 
 //This route is used to delete a category by its `id` value
 router.delete('/:id', (req, res) => {
@@ -66,7 +65,7 @@ router.delete('/:id', (req, res) => {
     }
   })
     .then((categories) => {
-      res.json(categories);
+      res.json({ message: 'Category deleted' });
     })
     .catch((err) => {
       res.status(500).json(err);
