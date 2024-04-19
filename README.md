@@ -3,8 +3,8 @@
   ## Description
   This project is to allow the user to interact with an ecommerce database and use routes to manipulate data in insomnia so that products, tags, and categories can all be modified using CRUD.
   ## Link To The Demo Video
-  
-  
+  https://drive.google.com/file/d/1ygXLFGe9YrzWBeU-PGkAgkA4YFv7-C6M/view
+    
    ## Installation
   To install this application the user must start by having node.js and mysql installed in their local machine and  downloading the TrackComm file from the Github repository(Instructions for installing node.js can be found here https://nodejs.org/en/learn/getting-started/how-to-install-nodejs) (instructions for installing mysql can be found here https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/). The user must be in the main directory and use the "npm i" or "npm install" command in their bash terminal (whichever is preferred) to install the package.json. Once the package.json is installed  the user will use bash to CD into the "db" folder where they can then run "mysql -u root -p" to enter into their mysql account. The user then must start with the command "source schema.sql;" which will install the schema file locally. The user must then type "quit" in the mysql terminal which will bring them back to the bash terminal. The user then enters the command "npm seeds/index.js" this will trigger the seed files in the seeds folder to populate the database with data. The user then will enter the command "npm start" which is programmed in the package.json which will start the e-commerce program via the server.js file using sql and node.js and run it on the local host's port 3001. The data can then be viewed and manipulated in insomnia by navigating to insomnia and entering the localhost url which will then allow the user to interact with the database. For users unfamiliar with insomnia, an installation guide can be found here https://docs.insomnia.rest/insomnia/install. Please enjoy this application, thank you for checking it out!
 
